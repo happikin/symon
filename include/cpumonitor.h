@@ -1,27 +1,27 @@
 #pragma once
-#include "monitor.h"
 #include <vector>
+#include <map>
 #include <sstream>
 
-class CpuMonitor : public Monitor {
+class CpuMonitor {
     private:
         const std::vector<std::string> fields {
-                "user",
-                "nice",
-                "system",
-                "idle",
-                "iowait",
-                "irq",
-                "softirq",
-                "steal",
-                "guest",
-                "guest_nice"
-            };
+            "user",
+            "nice",
+            "system",
+            "idle",
+            "iowait",
+            "irq",
+            "softirq",
+            "steal",
+            "guest",
+            "guest_nice"
+        };
     public:
         CpuMonitor(/* args */) {}
         ~CpuMonitor() {}
 
-        std::map<std::string,uint64_t> getCpuStats(std::string data) override ;
-        
+        std::map<std::string,uint64_t> getCpuStats(std::string data);
+        float getCpuIdletime();
 
 };

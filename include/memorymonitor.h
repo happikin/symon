@@ -1,7 +1,6 @@
 #pragma once
-#include "monitor.h"
 
-class MemMonitor : public Monitor {
+class MemMonitor {
     private:
 
     public:
