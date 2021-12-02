@@ -1,9 +1,13 @@
 #include <iostream>
 #include <memory>
+#include <dirent.h>
 #include "include/cpumonitor.h"
 #include "include/memorymonitor.h"
 #include "include/constants.h"
+#include "include/util.h"
 using namespace std;
+
+
 
 int main() {
     std::unique_ptr<CpuMonitor> cpumon = std::make_unique<CpuMonitor>();
@@ -21,5 +25,8 @@ int main() {
     cout << endl;
     cout << "SWAP Free% " << memmon->getFreeSwapMem(memmap) << endl;
     cout << "SWAP Used% " << memmon->getUsedSwapMem(memmap) << endl;
+
+    auto p_dirs = Util::getDirs();
+    
     return 0;
 }
