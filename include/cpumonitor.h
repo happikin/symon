@@ -22,6 +22,6 @@ class CpuMonitor {
         ~CpuMonitor() {}
 
         std::map<std::string,uint64_t> getCpuStats(std::string data);
-        float getCpuIdletime();
+        std::map<std::string,float> getCpuData();
 
 };

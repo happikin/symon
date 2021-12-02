@@ -1,4 +1,5 @@
 #include "../include/cpumonitor.h"
+#include "../include/constants.h"
 #include <fstream>
 #include <memory>
 #include <chrono>
@@ -33,11 +34,11 @@ std::map<std::string,uint64_t> CpuMonitor::getCpuStats(std::string data) {
     return statmap;
 }
 
-float CpuMonitor::getCpuIdletime() {
+std::map<std::string,float> CpuMonitor::getCpuData() {
     std::string cpu;
 
     std::fstream file("/proc/stat");
-    if(!file.is_open()) return 0;
+    if(!file.is_open()) return {};
     getline(file,cpu);
     cpu = cpu.substr(5);
     auto cpustat = this->getCpuStats(cpu);
@@ -47,7 +48,7 @@ float CpuMonitor::getCpuIdletime() {
     std::this_thread::sleep_for(1000ms);
     
     std::fstream file2("/proc/stat");
-    if(!file2.is_open()) return 0;
+    if(!file2.is_open()) return {};
     getline(file2,cpu);
     cpu = cpu.substr(5);
     auto cpustat2 = this->getCpuStats(cpu);
@@ -62,5 +63,8 @@ float CpuMonitor::getCpuIdletime() {
     float total_delta = tot2 - tot1;
     auto idle_percentage = ( idle_delta / total_delta ) * 100;
 
-    return idle_percentage;
+    return std::map<std::string,float>{
+        std::make_pair(idle,idle_percentage),
+        std::make_pair(run,100.00-idle_percentage)
+    };
 }
