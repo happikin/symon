@@ -1,8 +1,4 @@
 #include <iostream>
-#include <memory>
-#include <dirent.h>
-#include <chrono>
-#include <thread>
 #include "include/cpumonitor.h"
 #include "include/memorymonitor.h"
 #include "include/constants.h"
@@ -14,9 +10,10 @@ using namespace std::chrono_literals;
 
 
 int main() {
-    
+
     Util::logSysStats();
     auto p_dirs = Util::getDirs();
-    
+    for(auto& item:p_dirs) cout << item << endl;
+
     return 0;
 }

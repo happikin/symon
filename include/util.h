@@ -14,6 +14,7 @@ class Util {
         Util(const Util&) = delete;
         Util(const Util&&) = delete;
         void operator=(Util) = delete;
+
         static bool is_numeric(std::string dirname) {
             for(char& ch:dirname) {
                 if(ch > 57 || ch < 48) return false;
@@ -42,7 +43,7 @@ class Util {
             
             bool choice{true};
 
-            std::thread th1([&](){
+            std::thread th1([&]() mutable {
                 std::unique_ptr<CpuMonitor> cpumon = std::make_unique<CpuMonitor>();
                 std::unique_ptr<MemMonitor> memmon = std::make_unique<MemMonitor>();
 
@@ -62,14 +63,18 @@ class Util {
                 }
             });
 
-            std::thread th2([&](){
+            std::thread th2([&]() mutable {
+                // type ' q ' in the console to quit the logger
                 while(choice) {
-                    std::cin >> choice;
+                    char ch;
+                    std::cin >> ch;
+                    if(ch == 'q') choice = false;
+                    else choice = true;
                 }
             });
             
-            th2.join();
             th1.join();
+            th2.join();
             
         }
 };
