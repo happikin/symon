@@ -5,5 +5,5 @@ const std::string run = "runtime";
 
 enum Logfile
 {
-    json,text
+    json,text,csv
 };
