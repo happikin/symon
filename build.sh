@@ -1,1 +1,1 @@
-g++ -pthread main.cpp ./src/*.cpp  -I ./include/ -o symon
+g++ -pthread main.cpp ./src/*.cpp  -I ./include/ -o symon-li
