@@ -7,10 +7,12 @@
 using namespace std;
 using namespace std::chrono_literals;
 
-int main() {
+int main()
+{
 
-    Util::logSysStats();
+    auto logs = Util::logToConsole();
     auto p_dirs = Util::getDirs();
+    Util::logToFile(logs);
 
     return 0;
 }
